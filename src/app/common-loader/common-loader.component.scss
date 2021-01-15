@@ -1,0 +1,25 @@
+.black-bg {
+    background: #00000057;
+    z-index: 999999999999;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    bottom: 0px;
+}
+
+.progress-bar-container {
+    text-align: center;
+    height: 70px;
+    font-size: large;
+    color: #fff;
+    position: fixed;
+    top: 0px;
+    left: 40%;
+    right: 0px;
+    bottom: 0px;
+    margin: auto;
+}
+img.loader-spinner {
+    height: 100px;
+}

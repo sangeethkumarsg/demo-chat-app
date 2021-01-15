@@ -21,7 +21,12 @@
     "@angular/router": "~8.2.4",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "@angular/fire": "^6.0.3",
+    "firebase": "^7.14.0",
+    "firebaseui": "^4.5.0",
+    "firebaseui-angular": "^5.0.0-beta.0",
+    "@angular/material": "^8.2.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.2",
