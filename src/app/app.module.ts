@@ -8,17 +8,22 @@ import { AppComponent } from './app.component';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { FirebaseModule } from './modules/firebase/firebase.module';
 
+import { CommonLoaderComponent } from './common-loader/common-loader.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 // import { Platform } from '@angular/cdk/platform';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CommonLoaderComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    FirebaseModule
+    FirebaseModule,
+    MatProgressSpinnerModule
   ],
   providers: [ AngularFireAuthGuard ],
   bootstrap: [AppComponent]

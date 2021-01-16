@@ -16,7 +16,7 @@ export class ChatListComponent implements OnInit {
     private _chatService: ChatService
   ) { }
 
-  private chats:any[] = [];
+  chats:any[] = [];
   ngOnInit() {
     this.getUsersChat();
   }
