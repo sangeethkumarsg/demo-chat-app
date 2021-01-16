@@ -1,1 +1,39 @@
-<p>chat-list works!</p>
+<div class="chat-header">
+    <!-- <button mat-fab color="primary" class="start-chat-button" alert="Start Chat" title="Delete Product" (click)="startChat()">
+        <mat-icon>create</mat-icon>
+    </button> -->
+   
+</div>
+<mat-list>
+    <h3 mat-subheader>Chats</h3>
+    <mat-list-item *ngFor="let chat of chats;" (click)="chatClick(chat)">
+        
+        <!-- <h4 mat-line>{{chat.name}}</h4>
+        <mat-divider></mat-divider> --> 
+        <mat-divider></mat-divider>
+        <div class="chat-item">
+            <span *ngIf="chat.image">
+                <img [src]="chat.image" class="avatar-image">
+            </span>
+            <span *ngIf="!chat.image">
+                <img src="../../../../assets/images/user.jpg" class="avatar-image">
+            </span>
+            <label class="chat-name">{{chat.name}}</label>
+        </div>
+
+        <!-- <mat-card>
+            <mat-card-header>
+                <div mat-card-avatar>
+                    <span *ngIf="chat.image">
+                        <img [src]="chat.image" class="avatar-image">
+                    </span>
+                    <span *ngIf="!chat.image">
+                        <img src="../../../../assets/images/user.jpg" class="avatar-image">
+                    </span>
+                </div>
+                <mat-card-title>{{chat.name}}</mat-card-title>
+            </mat-card-header>
+        </mat-card> -->
+        
+    </mat-list-item>
+</mat-list>

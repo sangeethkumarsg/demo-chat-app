@@ -9,13 +9,18 @@ import { FireStoreService } from './firestore.service';
 })
 export class AuthService{
     authState: any = null;
+    userData: UserDoc = null;
     constructor(
         private firebaseAuth: AngularFireAuth,
         private firestoreService: FireStoreService
     ) {
+        if(this.getUserInfoFromLocalStorage()){
+            this.authState = this.getUserInfoFromLocalStorage();
+        }
         this.firebaseAuth.authState.subscribe( authState => {
             console.log('Auth state changed: ',authState);
             this.authState = authState;
+            localStorage.setItem('_loggedInUserInfo',JSON.stringify(authState));
           });
     }
 
@@ -24,7 +29,12 @@ export class AuthService{
     }
 
     get currentUserId(): string {
+        this.isAuthenticated
         return this.isAuthenticated ? this.authState.uid : null;
+    }
+
+    private getUserInfoFromLocalStorage(){
+        return localStorage.getItem('_loggedInUserInfo') ? JSON.parse(localStorage.getItem('_loggedInUserInfo')) : null;
     }
 
     setUserData(data:any){

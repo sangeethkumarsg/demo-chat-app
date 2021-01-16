@@ -1,0 +1,9 @@
+img.avatar-image {
+    height: 20px;
+}
+.chat-name{
+    margin-left: 12px;
+}
+.chat-item{
+    flex: auto;
+}

@@ -1,0 +1,17 @@
+.new-chat-icon{
+    float: right;
+}
+.home-page-container{
+    flex: auto;
+}
+.logout-icon{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+}
+.search-container{
+    flex: auto;
+}
+.new-chat-search {
+    width: 80%;
+}

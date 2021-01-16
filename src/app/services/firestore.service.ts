@@ -63,14 +63,20 @@ export class FireStoreService {
         return this.firebase.collection(collection).get();
         
     }
-    getuserinfo(collection,userid){
-        return this.firebase.collection(collection).doc(userid).get();
+    getCollectionWithOrderBy(collection:string, orderByField: string){
+        return this.firebase.collection(collection, ref => ref.orderBy(orderByField)).get();
     }
+
+    streamCollectionWithOrderBy(collection:string, orderByField: string){
+        return this.firebase.collection(collection, ref => ref.orderBy(orderByField)).snapshotChanges();
+    }
+   
 
     async queryCollection(collection, query:firebaseQueryObj[]):Promise<firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>>{
         return new Promise( async(resolve, reject) => {
             this.loader.isLoaderVisible = true;
             try{
+                console.log('query:',query);
                 let collectionRef:any = this.firebase.collection(collection).ref;
                 query.forEach(queryItem => {
                     collectionRef = collectionRef.where(queryItem.field, queryItem.condition, queryItem.value);

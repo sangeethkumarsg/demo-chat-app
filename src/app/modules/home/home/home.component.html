@@ -1,5 +1,19 @@
-HOME
+<div class="home-page-container">
+    <h3>Simple Chat</h3>
+    <button mat-icon-button aria-label="Logout" (click)="logout()" class="logout-icon">
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
+    <!-- <button mat-icon-button aria-label="Start new chat" (click)="startChat()" class="new-chat-icon">
+        <mat-icon>search</mat-icon>
+    </button> -->
+    <div class="search-container">
+        <input type="search" class="new-chat-search" placeholder="Enter email to search" [(ngModel)]="emailSearch">
+        <button mat-icon-button aria-label="Start new chat" (click)="searchByEmail()" class="search-email-icon">
+            <mat-icon>search</mat-icon>
+        </button>
+    </div>
+    
+</div>
 <div class="home-layout">
     <app-chat-list></app-chat-list>
-    <app-chat-detail></app-chat-detail>
 </div>

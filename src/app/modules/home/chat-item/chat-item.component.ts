@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-chat-item',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatItemComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _authService: AuthService
+  ) { }
+
+  @Input() content:any;
+  currentUserId:string;
 
   ngOnInit() {
+    this.currentUserId = this._authService.currentUserId;
   }
 
 }

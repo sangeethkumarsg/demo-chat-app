@@ -1,1 +1,32 @@
-<p>chat-detail works!</p>
+<div class="chat-detail-container">
+
+
+    <div class="receiver-name">
+        <button mat-icon-button aria-label="Back to chat list" (click)="backToChatList()">
+            <mat-icon>arrow_back_ios</mat-icon>
+        </button><span>{{receiverName}}</span>
+    </div>
+    <div class="chat-contents-container" #messgaeContainer>
+
+    
+        <div *ngFor="let content of chatContents" class="chat-container">
+            <!-- <app-chat-item [content]="content"></app-chat-item> -->
+            <div *ngIf="content.sender && content.sender != currentUserId" class="received-msg">
+                <div>{{content.message}}</div>
+                <div class="time">{{getTime(content.time)}}</div>
+            </div>
+            
+            <div *ngIf="content.sender && content.sender == currentUserId" class="sent-msg">
+                <div>{{content.message}}</div>
+                <div class="time">{{getTime(content.time)}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="chat-input-container">
+        <!-- <input type="text" placeholder="Type your message"> -->
+        <textarea class="chat-input-area" placeholder="Type your message" [(ngModel)]="chatMessage" (keyup.enter)="sendMessage()"></textarea>
+        <button mat-fab color="primary" aria-label="Send" class="send-button" (click)="sendMessage()">
+            <mat-icon>send</mat-icon>
+        </button>
+    </div>
+</div>
