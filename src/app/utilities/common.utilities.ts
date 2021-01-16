@@ -15,6 +15,7 @@ export class CommonUtilities {
     private static audioFileExtenstions = ['mp3','wav'];
 
     public static getMediaType(filename:string){
+        filename = this.removeQueryStringFromUrl(filename);
         const extenstion = this.getExtension(filename);
         if(this.imageFileExtensions.indexOf(extenstion) > -1){
             return CHAT_MEDIA_TYPE.IMAGE;
@@ -62,5 +63,9 @@ export class CommonUtilities {
         }
         return time.join (''); // return adjusted time or original string
     }
+
+    public static removeQueryStringFromUrl(url:string) {
+        return url.split("?")[0];
+      }
 
 }

@@ -4,6 +4,7 @@ import { COLLECTION_ROOTS, CHAT_STATUS, CHAT_TYPES,CHAT_MEDIA_TYPE, SUB_COLLECTI
 import { MediaUploadService } from './media-upload.service';
 import { CommonUtilities } from "../utilities/common.utilities";
 import * as _ from 'lodash';
+import { CommonLoaderService } from '../common-loader/common-loader.service';
 
 @Injectable({
     'providedIn':'root'
@@ -11,7 +12,8 @@ import * as _ from 'lodash';
 export class ChatService {
     constructor(
         private _firestoreService: FireStoreService,
-        private _mediaUploadService: MediaUploadService
+        private _mediaUploadService: MediaUploadService,
+        private _commomLoaderService: CommonLoaderService
     ){}
 
     getChatByUserId(userId:string){
@@ -35,14 +37,18 @@ export class ChatService {
     }
 
     async uploadMediaInChat(chatId:string, sender:string, medias:any[]){
+        this._commomLoaderService.setLoaderVisible(true);
         const promiseArray = [];
         try{
             for(const media of medias){
                 promiseArray.push(this.singleMediaUploadInChat(chatId, sender, media));
             }
-            return await Promise.all(promiseArray);
+            const resp = await Promise.all(promiseArray);
+            this._commomLoaderService.setLoaderVisible(false);
+            return resp;
         }catch(error){
             console.error('Media upload failed: ',error);
+            this._commomLoaderService.setLoaderVisible(false);
             throw error;
         }
         
@@ -76,7 +82,8 @@ export class ChatService {
         return this._firestoreService.addToCollection(collectionPath,{
             time,
             sender:userId,
-            message
+            message,
+            mediaType: "TEXT"
         }); 
     }
 
@@ -132,6 +139,10 @@ export class ChatService {
                 value: email
             }
         ])
+    }
+
+    async getAllUsers(){
+        return this._firestoreService.getCollection(COLLECTION_ROOTS.USERS).toPromise();
     }
     
 

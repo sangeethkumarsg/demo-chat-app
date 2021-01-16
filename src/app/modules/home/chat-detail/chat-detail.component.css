@@ -63,6 +63,13 @@
     flex-direction: column;
 }
 
+.file-upload{
+    display: none;
+}
+img.chat-media {
+    height: 100px;
+}
+
 @media only screen and (max-width: 600px) {
     .received-msg {
         left: 2%;

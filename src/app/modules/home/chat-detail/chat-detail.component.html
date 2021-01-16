@@ -12,12 +12,14 @@
         <div *ngFor="let content of chatContents" class="chat-container">
             <!-- <app-chat-item [content]="content"></app-chat-item> -->
             <div *ngIf="content.sender && content.sender != currentUserId" class="received-msg">
-                <div>{{content.message}}</div>
+                <img [src]="content.mediaUrl" class="chat-media" *ngIf="content.mediaType == 'image'">
+                <div *ngIf="!content.mediaType || content.mediaType == 'TEXT'">{{content.message}}</div>
                 <div class="time">{{getTime(content.time)}}</div>
             </div>
             
             <div *ngIf="content.sender && content.sender == currentUserId" class="sent-msg">
-                <div>{{content.message}}</div>
+                <img [src]="content.mediaUrl" class="chat-media" *ngIf="content.mediaType == 'image'">
+                <div *ngIf="!content.mediaType || content.mediaType == 'TEXT'">{{content.message}}</div>
                 <div class="time">{{getTime(content.time)}}</div>
             </div>
         </div>
@@ -25,6 +27,11 @@
     <div class="chat-input-container">
         <!-- <input type="text" placeholder="Type your message"> -->
         <textarea class="chat-input-area" placeholder="Type your message" [(ngModel)]="chatMessage" (keyup.enter)="sendMessage()"></textarea>
+        <button mat-fab color="primary" aria-label="Attach" class="attach-button" (click)="attachFile()">
+            <mat-icon>attach_file</mat-icon>
+        </button>
+        <input type="file" (change)="selectFile($event, attachments, 'upload')" accept="image/*" multiple name="upload[]" id="file-upload" class="file-upload"/>
+
         <button mat-fab color="primary" aria-label="Send" class="send-button" (click)="sendMessage()">
             <mat-icon>send</mat-icon>
         </button>

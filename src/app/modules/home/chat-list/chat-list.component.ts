@@ -18,7 +18,24 @@ export class ChatListComponent implements OnInit {
 
   chats:any[] = [];
   ngOnInit() {
-    this.getUsersChat();
+    //this.getUsersChat();
+    this.getUsers();
+  }
+
+  async getUsers(){
+    const users = await this._chatService.getAllUsers();
+    if(users && users.size){
+      console.log('users: ',users);
+      const chatArray = [];
+      users.forEach(user => {
+        chatArray.push({
+          receiver: user.id,
+          name: user.data().displayName
+        })
+      });
+      console.log('usersInfo: ',chatArray);
+      this.chats = chatArray;
+    }
   }
 
   async getUsersChat(){
@@ -70,11 +87,39 @@ export class ChatListComponent implements OnInit {
 
   chatClick(chat){
     //const currentUserId = this._authService.currentUserId;
-    console.log('chat: ',chat);
-    this._router.navigate(['/chat-detail'],{
-      'queryParams': {
-        chatId : chat.id
-      }})
+    // console.log('chat: ',chat);
+    // this._router.navigate(['/chat-detail'],{
+    //   'queryParams': {
+    //     chatId : chat.id
+    //   }})
+    this.startChat(chat.receiver);
+  }
+
+  async startChat(uid){
+    const currentUserId = this._authService.currentUserId;
+    console.log('uid: ',uid, ' current userId: ',currentUserId);
+    //return null;
+    if(uid == currentUserId){
+      alert('You cannot chat to yourself 😜');
+      return null;
+    }
+    const existingChat = await this._chatService.isChatExists([currentUserId, uid]);
+    if(existingChat.empty){
+      console.log('chat not available');
+      const newChatInfo = await this._chatService.startChat([currentUserId, uid]);
+      this._router.navigate(['/chat-detail'],{
+        'queryParams': {
+          chatId : newChatInfo.id
+        }})
+    }else{
+      console.log('chat exists');
+      this._router.navigate(['/chat-detail'],{
+        'queryParams': {
+          chatId : existingChat.docs[0].id
+        }})
+    }
+    
+    
   }
 
 }

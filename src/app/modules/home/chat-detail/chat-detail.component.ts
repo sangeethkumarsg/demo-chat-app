@@ -23,6 +23,7 @@ export class ChatDetailComponent implements OnInit {
   receiverName: string;
   chatMessage: string;
   chatId: string;
+  attachments:any = {};
   @ViewChild('messgaeContainer',{static: true}) private messgaeContainer: ElementRef;
   ngOnInit() {
     this.currentUserId = this._authService.currentUserId;
@@ -78,5 +79,17 @@ export class ChatDetailComponent implements OnInit {
   getTime(time){
     return CommonUtilities.getDateTime(time)
   }
+
+  selectFile(event, obj, objKey) {
+    console.log('event data :',event.target.files);
+    obj[objKey] = event.target.files;
+    this._chatService.uploadMediaInChat(this.chatId, this.currentUserId, event.target.files);
+  }
+
+  attachFile(){
+    document.getElementById('file-upload').click();
+  }
+
+  
 
 }
